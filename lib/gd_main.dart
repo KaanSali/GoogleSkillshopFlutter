@@ -2,9 +2,7 @@
 // ne kadar mantıklı bilemedim.
 typedef IsimliParametreFunc = String Function({required String konu,String eylem});
 void main() {
-
-Ders_Degiskenler();
-
+  Ders_Class();
 }
 
 void Ders_Fonksiyonlar(){
@@ -73,4 +71,38 @@ void Ders_Set(){
 void Ders_Map(){
   final Map<String,String> items = {'a' : "1", 'b': "1"};
 
+}
+
+List<E> Ders_Referanslar<E>(E item){
+  List<E> variable = [];
+  variable.add(item);
+  return variable;
+}
+
+void Ders_Class(){
+  Ogrenci ali = Ogrenci("Ali", "Yilmaz", 18, "Erkek", 100);
+  Ogrenci veli = Ogrenci("Veli", "Yilmaz", 19, "Erkek", 80);
+  print(ali.fullName);
+  ali.fullName = "kaan sali";
+  print(ali.fullName);
+}
+
+class Ogrenci{
+  String firstName;
+  String lastName;
+  int age;
+  String sex;
+  int degree;
+
+  Ogrenci(this.firstName, this.lastName, this.age, this.sex, this.degree);
+
+  String get fullName => '$firstName $lastName';
+  set fullName(String value){
+    firstName = value.split(' ')[0];
+    lastName = value.split(' ')[1];
+  }
+  @override
+  String toString() {
+    return "My name is $firstName $lastName, I am $age years old and I am $sex";
+  }
 }
