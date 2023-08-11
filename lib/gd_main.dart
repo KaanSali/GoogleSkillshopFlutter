@@ -80,8 +80,8 @@ List<E> Ders_Referanslar<E>(E item){
 }
 
 void Ders_Class(){
-  Ogrenci ali = Ogrenci("Ali", "Yilmaz", 18, "Erkek", 100);
-  Ogrenci veli = Ogrenci("Veli", "Yilmaz", 19, "Erkek", 80);
+  Ogrenci ali = Ogrenci("Ali", "Yilmaz", 18, "Erkek", 100,11);
+  Ogrenci veli = Ogrenci("Veli", "Yilmaz", 19, "Erkek", 80,12);
   print(ali.fullName);
   ali.fullName = "kaan sali";
   print(ali.fullName);
@@ -93,8 +93,14 @@ class Ogrenci{
   int age;
   String sex;
   int degree;
+  final int yearsInSchool; // bunun değeri gelecekte değiştirilemez olur. Ders 4.3
 
-  Ogrenci(this.firstName, this.lastName, this.age, this.sex, this.degree);
+  // late final olduğunda değerini şimdi vermesekte oluyor, ama daha sonra sadece tek bir kere verilip değiştirilemez oluyor.
+  // Fakat tekrar değer atamaya çalışırsak runtime'da hata veriyor, compile time da yakalanamıyor. Ders 4.3
+  late final int unsuccessfulGradeCount;
+
+
+  Ogrenci(this.firstName, this.lastName, this.age, this.sex, this.degree,this.yearsInSchool);
 
   String get fullName => '$firstName $lastName';
   set fullName(String value){
