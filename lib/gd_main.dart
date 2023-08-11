@@ -2,7 +2,7 @@
 // ne kadar mantıklı bilemedim.
 typedef IsimliParametreFunc = String Function({required String konu,String eylem});
 void main() {
-  Ders_Class();
+  Ders_Collections().GetFoldedList();
 }
 
 void Ders_Fonksiyonlar(){
@@ -85,6 +85,7 @@ void Ders_Class(){
   print(ali.fullName);
   ali.fullName = "kaan sali";
   print(ali.fullName);
+  Ogrenci kaan= Ogrenci.male("Kaan", "Salı", 26, 100, 16); // Ders 4.4
 }
 
 class Ogrenci{
@@ -100,8 +101,11 @@ class Ogrenci{
   late final int unsuccessfulGradeCount;
 
 
-  Ogrenci(this.firstName, this.lastName, this.age, this.sex, this.degree,this.yearsInSchool);
-
+  Ogrenci(this.firstName, this.lastName, this.age, this.sex, this.degree, int yis) : yearsInSchool = yis { // Parantez içinde veya noktalı virgülden sonra liste halinde parametreler alınabilir.
+    age = 10; // Final veya const olmadığı için hata vermeyecektir ve çalışacaktır. Ders 4.4
+    // yearsInSchool = 10;// final olduğu için hata verecektir, çünkü ctor ataması çalışmış olup, artık fonksiyon olarak çalışmaktadır.
+  }
+  Ogrenci.male(String fn,String ln,int age,int degree,int yis) : this(fn,ln,age,"Erkek",degree,yis); // Named Ctor Ders 4.4
   String get fullName => '$firstName $lastName';
   set fullName(String value){
     firstName = value.split(' ')[0];
@@ -110,5 +114,26 @@ class Ogrenci{
   @override
   String toString() {
     return "My name is $firstName $lastName, I am $age years old and I am $sex";
+  }
+}
+const Ogretmen ogr = Ogretmen("Ali Veli","Türkçe"); // const ctor'lar const değer olarak tanımlanabilir. Ders 4.4
+class Ogretmen{
+  final String adSoyad;
+  final String ders;
+  const Ogretmen(this.adSoyad,this.ders);
+  factory Ogretmen.sgtn(){
+    return ogr; //Singleton patterni gibi referansı döndüren tanımdır. Factory ile bellekten veya alt türün objesi çekliebilir.
+  }
+}
+
+class Ders_Collections{
+  void GetFoldedList(){
+    final list = [
+      for(int i=0;i<10;i++)
+        i
+    ];
+    print(list);
+    print(list.fold<int>(0, (previousValue, element) => previousValue + element));
+    print(list.map((e) => e*e));
   }
 }
