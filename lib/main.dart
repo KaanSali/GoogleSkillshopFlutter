@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Google Developers Home Page'),
+      home: const MyHomePage(title: 'Google Skillshop'),
     );
   }
 }
@@ -52,6 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+    void _decrementCounter(){
+      setState(() {
+        _counter--;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(Icons.menu),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [IconButton(onPressed: ()=>print("x basildi"), icon: const Icon(Icons.image))],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -87,13 +94,28 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
+              style: TextStyle(color: Colors.black45,fontSize: 18,fontWeight: FontWeight.w600),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: ()=>_decrementCounter(), child: const Icon(Icons.remove)),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                ElevatedButton(onPressed: ()=>_incrementCounter(), child: const Icon(Icons.add)),
+              ],
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items:const [
+          BottomNavigationBarItem(icon: Icon(Icons.camera),label: "Camera"),
+          BottomNavigationBarItem(icon: Icon(Icons.browse_gallery),label: "Gallery")
+        ]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
